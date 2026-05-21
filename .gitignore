@@ -1,0 +1,48 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.g.dart
+*.freezed.dart
+flutter_export_environment.sh
+
+# Backend
+backend/node_modules/
+backend/.env
+backend/dist/
+
+# AI Service
+ai_service/__pycache__/
+ai_service/*.pyc
+ai_service/.venv/
+ai_service/venv/
+ai_service/.env
+
+# Root env
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+coverage/
+lcov.info
+
+# Firebase
+google-services.json
+GoogleService-Info.plist
+firebase_options.dart
