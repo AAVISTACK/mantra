@@ -3,12 +3,11 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
-.pub-cache/
-.pub/
 build/
 *.g.dart
 *.freezed.dart
-flutter_export_environment.sh
+flutter_*.png
+pubspec.lock
 
 # Backend
 backend/node_modules/
@@ -17,32 +16,10 @@ backend/dist/
 
 # AI Service
 ai_service/__pycache__/
-ai_service/*.pyc
-ai_service/.venv/
-ai_service/venv/
 ai_service/.env
+ai_service/venv/
 
-# Root env
-.env
-.env.local
-.env.*.local
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
+# General
 .DS_Store
-
-# Logs
 *.log
-logs/
-
-# Test coverage
-coverage/
-lcov.info
-
-# Firebase
-google-services.json
-GoogleService-Info.plist
-firebase_options.dart
+.env
