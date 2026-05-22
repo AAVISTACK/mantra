@@ -3,6 +3,29 @@
 
 'use strict';
 
+
+// ─── Environment Validation ───────────────────────────────
+(function validateEnv() {
+  const required = {
+    JWT_SECRET:         { minLength: 32 },
+    PHONE_HASH_SECRET:  { minLength: 16 },
+    DATABASE_URL:       {},
+    REDIS_URL:          {},
+  };
+  const errors = [];
+  for (const [key, opts] of Object.entries(required)) {
+    const val = process.env[key];
+    if (!val) errors.push(`Missing required env: ${key}`);
+    else if (opts.minLength && val.length < opts.minLength)
+      errors.push(`${key} must be >= ${opts.minLength} chars (got ${val.length})`);
+  }
+  if (errors.length) {
+    console.error('\n[STARTUP ERROR] Environment validation failed:');
+    errors.forEach(e => console.error(`  ✗ ${e}`));
+    process.exit(1);
+  }
+})();
+
 const Fastify = require('fastify');
 const cors = require('@fastify/cors');
 const helmet = require('@fastify/helmet');
