@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/onboarding_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:record/record.dart';
 import 'package:just_audio/just_audio.dart';
