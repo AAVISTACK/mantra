@@ -1,91 +1,86 @@
-// lib/features/auth/data/models/user_model.dart
-
 class UserModel {
   final String id;
-  final String phoneHash;
-  final int verificationLevel; // 1-5
+  final int verificationLevel;
   final String accountStatus;
-  final String gender;
-  final int age;
-  final String city;
-  final DateTime createdAt;
-  final DateTime lastActive;
+  final String? gender;
+  final int? age;
+  final String? city;
+  final String? displayName;
+  final double? trustScore;
+  final List<String> photoUrls;
   final bool isPremium;
   final String? premiumTier;
   final bool isOnboarded;
+  final String? kycLevel;
+  final DateTime createdAt;
+  final DateTime lastActive;
 
   const UserModel({
     required this.id,
-    required this.phoneHash,
     required this.verificationLevel,
     required this.accountStatus,
-    required this.gender,
-    required this.age,
-    required this.city,
-    required this.createdAt,
-    required this.lastActive,
+    this.gender,
+    this.age,
+    this.city,
+    this.displayName,
+    this.trustScore,
+    this.photoUrls = const [],
     required this.isPremium,
     this.premiumTier,
     required this.isOnboarded,
+    this.kycLevel,
+    required this.createdAt,
+    required this.lastActive,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        id: json['id'],
-        phoneHash: json['phone_hash'],
-        verificationLevel: json['verification_level'],
-        accountStatus: json['account_status'],
-        gender: json['gender'],
-        age: json['age'],
-        city: json['city'],
-        createdAt: DateTime.parse(json['created_at']),
-        lastActive: DateTime.parse(json['last_active']),
-        isPremium: json['is_premium'],
-        premiumTier: json['premium_tier'],
-        isOnboarded: json['is_onboarded'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'phone_hash': phoneHash,
-        'verification_level': verificationLevel,
-        'account_status': accountStatus,
-        'gender': gender,
-        'age': age,
-        'city': city,
-        'created_at': createdAt.toIso8601String(),
-        'last_active': lastActive.toIso8601String(),
-        'is_premium': isPremium,
-        'premium_tier': premiumTier,
-        'is_onboarded': isOnboarded,
-      };
+    id: json['id'] as String,
+    verificationLevel: (json['verification_level'] as num?)?.toInt() ?? 1,
+    accountStatus: json['account_status'] as String? ?? 'active',
+    gender: json['gender'] as String?,
+    age: (json['age'] as num?)?.toInt(),
+    city: json['city'] as String?,
+    displayName: json['display_name'] as String?,
+    trustScore: (json['trust_score'] as num?)?.toDouble(),
+    photoUrls: (json['photo_urls'] as List?)?.cast<String>() ?? [],
+    isPremium: json['is_premium'] as bool? ?? false,
+    premiumTier: json['premium_tier'] as String?,
+    isOnboarded: json['is_onboarded'] as bool? ?? false,
+    kycLevel: json['kyc_level'] as String?,
+    createdAt: DateTime.parse(json['created_at'] as String),
+    lastActive: DateTime.parse(json['last_active'] as String),
+  );
 
   UserModel copyWith({
-    String? id,
-    String? phoneHash,
-    int? verificationLevel,
-    String? accountStatus,
-    String? gender,
-    int? age,
-    String? city,
-    DateTime? createdAt,
-    DateTime? lastActive,
-    bool? isPremium,
-    String? premiumTier,
-    bool? isOnboarded,
-  }) {
-    return UserModel(
-      id: id ?? this.id,
-      phoneHash: phoneHash ?? this.phoneHash,
-      verificationLevel: verificationLevel ?? this.verificationLevel,
-      accountStatus: accountStatus ?? this.accountStatus,
-      gender: gender ?? this.gender,
-      age: age ?? this.age,
-      city: city ?? this.city,
-      createdAt: createdAt ?? this.createdAt,
-      lastActive: lastActive ?? this.lastActive,
-      isPremium: isPremium ?? this.isPremium,
-      premiumTier: premiumTier ?? this.premiumTier,
-      isOnboarded: isOnboarded ?? this.isOnboarded,
-    );
-  }
+    String? id, int? verificationLevel, String? accountStatus,
+    String? gender, int? age, String? city, String? displayName,
+    double? trustScore, List<String>? photoUrls, bool? isPremium,
+    String? premiumTier, bool? isOnboarded, String? kycLevel,
+    DateTime? createdAt, DateTime? lastActive,
+  }) => UserModel(
+    id: id ?? this.id,
+    verificationLevel: verificationLevel ?? this.verificationLevel,
+    accountStatus: accountStatus ?? this.accountStatus,
+    gender: gender ?? this.gender,
+    age: age ?? this.age,
+    city: city ?? this.city,
+    displayName: displayName ?? this.displayName,
+    trustScore: trustScore ?? this.trustScore,
+    photoUrls: photoUrls ?? this.photoUrls,
+    isPremium: isPremium ?? this.isPremium,
+    premiumTier: premiumTier ?? this.premiumTier,
+    isOnboarded: isOnboarded ?? this.isOnboarded,
+    kycLevel: kycLevel ?? this.kycLevel,
+    createdAt: createdAt ?? this.createdAt,
+    lastActive: lastActive ?? this.lastActive,
+  );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserModel && id == other.id &&
+      isOnboarded == other.isOnboarded && accountStatus == other.accountStatus;
+
+  @override
+  int get hashCode => id.hashCode ^ isOnboarded.hashCode ^ accountStatus.hashCode;
 }
